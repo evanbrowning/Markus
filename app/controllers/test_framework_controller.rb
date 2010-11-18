@@ -19,6 +19,8 @@ class TestFrameworkController < ApplicationController
       export_configuration_files(@assignment, @group, File.join(MarkusConfigurator.markus_config_test_framework_repository, @group.repo_name))
       run_ant_file(@result, @assignment, File.join(MarkusConfigurator.markus_config_test_framework_repository, @group.repo_name))
     end
+    @token = @grouping.token
+    @revision_number = @group.repo.get_latest_revision.revision_number
     render :action => 'test_replace', :locals => {:test_result_files => @test_result_files, :result => @result}
   end
 
