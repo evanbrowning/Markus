@@ -69,8 +69,9 @@ Assignment.blueprint do
   allow_web_submits {true}
   display_grader_names_to_students {false}
   enable_test {true}
-  tokens_per_day {10}
+  tokens_allowed {10}
   assign_graders_to_criteria {false}
+  token_refresh_period {'none'}
 end
 
 AssignmentFile.blueprint do

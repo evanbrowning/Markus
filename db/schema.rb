@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101112160622) do
+ActiveRecord::Schema.define(:version => 20101118225304) do
 
   create_table "annotation_categories", :force => true do |t|
     t.text     "annotation_category_name"
@@ -81,7 +81,11 @@ ActiveRecord::Schema.define(:version => 20101112160622) do
     t.integer  "rubric_criterions_count"
     t.integer  "flexible_criterions_count"
     t.integer  "groupings_count"
-    t.integer  "tokens_per_day",                   :default => 0,        :null => false
+    t.integer  "tokens_allowed",                   :default => 0,        :null => false
+    t.boolean  "allow_remarks",                    :default => true,     :null => false
+    t.datetime "remark_due_date"
+    t.text     "remark_message"
+    t.string   "token_refresh_period"
   end
 
   add_index "assignments", ["short_identifier"], :name => "index_assignments_on_name", :unique => true
@@ -253,6 +257,8 @@ ActiveRecord::Schema.define(:version => 20101112160622) do
     t.float    "total_mark",           :default => 0.0
   end
 
+  add_index "results", ["submission_id"], :name => "results_u1", :unique => true
+
   create_table "rubric_criteria", :force => true do |t|
     t.string   "rubric_criterion_name",                :null => false
     t.integer  "assignment_id",                        :null => false
@@ -360,9 +366,9 @@ ActiveRecord::Schema.define(:version => 20101112160622) do
   add_index "test_results", ["submission_id"], :name => "index_test_results_on_submission_id"
 
   create_table "tokens", :force => true do |t|
-    t.integer "grouping_id"
-    t.integer "tokens"
-    t.date    "last_token_used_date"
+    t.integer  "grouping_id"
+    t.integer  "tokens"
+    t.datetime "last_token_used_date"
   end
 
   create_table "users", :force => true do |t|

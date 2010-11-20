@@ -6,6 +6,12 @@ class Assignment < ActiveRecord::Base
     :rubric => 'rubric'
   }
 
+  TOKEN_REFRESH_PERIOD = {
+    :none => 'none',
+    :daily => 'daily',
+    :hourly => 'hourly'
+  }
+
   has_many :rubric_criteria, :class_name => "RubricCriterion", :order => :position
   has_many :flexible_criteria, :class_name => "FlexibleCriterion", :order => :position
   has_many :assignment_files
@@ -36,7 +42,7 @@ class Assignment < ActiveRecord::Base
 
   validates_numericality_of :group_min, :only_integer => true,  :greater_than => 0
   validates_numericality_of :group_max, :only_integer => true
-  validates_numericality_of :tokens_per_day, :only_integer => true,  :greater_than_or_equal_to => 0
+  validates_numericality_of :tokens_allowed, :only_integer => true,  :greater_than_or_equal_to => 0
 
   validates_associated :submission_rule
   validates_presence_of :submission_rule
@@ -588,7 +594,7 @@ class Assignment < ActiveRecord::Base
 
   def update_assigned_tokens
     self.tokens.each do |t|
-      t.update_tokens(self.tokens_per_day_was, self.tokens_per_day)
+      t.update_tokens(self.tokens_allowed_was, self.tokens_allowed)
     end
   end
 

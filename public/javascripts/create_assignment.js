@@ -69,6 +69,12 @@ function toggle_test_framework(is_testing_framework_enabled) {
   if(is_testing_framework_enabled) {
     $('tokens').removeClassName('disable');
     $('tokens_per_day').enable();
+    $('assignment_token_refresh_period_daily').enable();
+    $('assignment_token_refresh_period_hourly').enable();
+    $('assignment_token_refresh_period_none').enable();
+    $('token_refresh_label_none').removeClassName('disable');
+    $('token_refresh_label_daily').removeClassName('disable');
+    $('token_refresh_label_hourly').removeClassName('disable');
 
     $$('#antbuildfile_style').each(function(node) { node.removeClassName('disable'); });
     $$('#antbuildfile_style input').each(function(node) {
@@ -93,6 +99,12 @@ function toggle_test_framework(is_testing_framework_enabled) {
   } else {
     $('tokens').addClassName('disable');
     $('tokens_per_day').disable();
+    $('assignment_token_refresh_period_daily').disable();
+    $('assignment_token_refresh_period_hourly').disable();
+    $('assignment_token_refresh_period_none').disable();
+    $('token_refresh_label_none').addClassName('disable');
+    $('token_refresh_label_daily').addClassName('disable');
+    $('token_refresh_label_hourly').addClassName('disable');
 
     $$('#antbuildfile_style').each(function(node) { node.addClassName('disable'); });
     $$('#antbuildfile_style input').each(function(node) {

@@ -1021,9 +1021,14 @@ en:
       token:
         tokens_form: "Tokens available per group"
         tokens_per_day: "<span class=\"prop_label\">Tokens per day:</span> %{tokens}"
+        tokens_per_hour: "<span class=\"prop_label\">Tokens per hour:</span> %{tokens}"
+        tokens_allowed: "<span class=\"prop_label\">Tokens allowed:</span> %{tokens}"
         tokens_not_given_yet: "<span class=\"prop_label\">Tokens available:</span> No tokens given yet"
         tokens_no_more_available: "<span class=\"prop_label\">Tokens available:</span >No more tokens available "
         tokens_available: "<span class=\"prop_label\">Tokens available:</span> %{tokens}"
+        token_refresh_period_none: "Do not refresh tokens"
+        token_refresh_period_daily: "Refresh tokens daily"
+        token_refresh_period_hourly: "Refresh tokens hourly"
 
 #Missing Activerecord Translations for english
     datetime:

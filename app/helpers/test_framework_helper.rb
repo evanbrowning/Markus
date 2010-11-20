@@ -124,11 +124,12 @@ module TestFrameworkHelper
     # Update test file attributes
     assignment.test_files_attributes = updated_files
 
-    # Update assignment enable_test and tokens_per_day attributes
+    # Update assignment enable_test, tokens_per_day and token_refresh_period attributes
     assignment.enable_test = params[:assignment][:enable_test]
-    num_tokens = params[:assignment][:tokens_per_day]
+    num_tokens = params[:assignment][:tokens_allowed]
+    assignment.token_refresh_period = params[:assignment][:token_refresh_period]
     if num_tokens
-      assignment.tokens_per_day = num_tokens
+      assignment.tokens_allowed = num_tokens
     end
 
     return assignment

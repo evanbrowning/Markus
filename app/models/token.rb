@@ -18,14 +18,18 @@ class Token < ActiveRecord::Base
   def decrease_tokens()
     if self.tokens > 0
       self.tokens = self.tokens - 1
-      self.last_token_used_date = Date.today
+      self.last_token_used_date = Time.now
     end
     self.save
   end
 
-  def reassign_tokens_if_new_day()
-    if self.last_token_used_date and self.last_token_used_date < Date.today
-      self.reassign_tokens()
+  #Reassign tokens if it is a new day or a new hour and the instructor has requested it
+  def reassign_tokens_if_necessary()
+    assignment = self.grouping.assignment
+    if self.last_token_used_date:
+      if (assignment.token_refresh_period == 'hourly' and (Time.now - self.last_token_used_date) >= 1.hour) or (assignment.token_refresh_period == 'daily' and (Time.now - self.last_token_used_date) >= 1.day)
+        self.reassign_tokens()
+      end
     end
   end
 
@@ -33,10 +37,10 @@ class Token < ActiveRecord::Base
   # allowed for this assignment
   def reassign_tokens()
     assignment = self.grouping.assignment
-    if assignment.tokens_per_day.nil?
+    if assignment.tokens_allowed.nil?
       self.tokens = 0
     else
-      self.tokens = assignment.tokens_per_day
+      self.tokens = assignment.tokens_allowed
     end
     self.save
   end

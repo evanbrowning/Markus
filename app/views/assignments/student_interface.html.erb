@@ -295,7 +295,13 @@
             <br />
             <div class="sub_block">
               <br />
-              <%= I18n.t("test_framework.token.tokens_per_day", :tokens => @assignment.tokens_per_day) %>
+              <% if @assignment.token_refresh_period == :daily %>
+                <%= I18n.t("test_framework.token.tokens_per_day", :tokens => @assignment.tokens_allowed) %>
+              <% elsif @assignment.token_refresh_period == :hourly %>
+                <%= I18n.t("test_framework.token.tokens_per_hour", :tokens => @assignment.tokens_allowed) %>
+              <% else %>
+                <%= I18n.t("test_framework.token.tokens_allowed", :tokens => @assignment.tokens_allowed) %>
+              <% end %>
             </div>
             <br />
             <div class="sub_block">
