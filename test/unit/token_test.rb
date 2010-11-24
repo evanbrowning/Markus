@@ -125,11 +125,7 @@ class TokenTest < ActiveSupport::TestCase
       @token.reassign_tokens_if_new_day()
       assert_equal(3, @token.tokens)
     end
-<<<<<<< HEAD:test/unit/token_test.rb
-end
-=======
   end
->>>>>>> 2fd1a0b06b4794f11a667504eab324ddc876fe0f:test/unit/token_test.rb
 
   context "Token" do
     setup do
