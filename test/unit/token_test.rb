@@ -118,7 +118,6 @@ class TokenTest < ActiveSupport::TestCase
     end
     should "reassign tokens if it is a new day" do
       @token.last_token_used_date = 5.days.ago
-<<<<<<< HEAD:test/unit/token_test.rb
       @token.reassign_tokens_if_necessary()
       assert_equal(5, @token.tokens)
     end

@@ -24,7 +24,7 @@ class TestFrameworkController < ApplicationController
 
   def manage
     @assignment = Assignment.find_by_id(params[:id])
-
+    @refresh_periods = Assignment::TOKEN_REFRESH_PERIOD
     # Create ant test files required by Testing Framework
     create_ant_test_files(@assignment)
 

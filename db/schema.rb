@@ -81,18 +81,11 @@ ActiveRecord::Schema.define(:version => 20101118225304) do
     t.integer  "rubric_criterions_count"
     t.integer  "flexible_criterions_count"
     t.integer  "groupings_count"
-<<<<<<< HEAD:db/schema.rb
     t.integer  "tokens_allowed",                   :default => 0,        :null => false
     t.boolean  "allow_remarks",                    :default => true,     :null => false
     t.datetime "remark_due_date"
     t.text     "remark_message"
     t.string   "token_refresh_period"
-=======
-    t.integer  "tokens_per_day",                   :default => 0,        :null => false
-    t.boolean  "allow_remarks",                    :default => true,     :null => false
-    t.datetime "remark_due_date"
-    t.text     "remark_message"
->>>>>>> 2fd1a0b06b4794f11a667504eab324ddc876fe0f:db/schema.rb
   end
 
   add_index "assignments", ["short_identifier"], :name => "index_assignments_on_name", :unique => true
@@ -263,8 +256,6 @@ ActiveRecord::Schema.define(:version => 20101118225304) do
     t.boolean  "released_to_students", :default => false, :null => false
     t.float    "total_mark",           :default => 0.0
   end
-
-  add_index "results", ["submission_id"], :name => "results_u1", :unique => true
 
   create_table "rubric_criteria", :force => true do |t|
     t.string   "rubric_criterion_name",                :null => false
