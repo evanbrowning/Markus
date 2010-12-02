@@ -27,7 +27,7 @@ class Token < ActiveRecord::Base
   def reassign_tokens_if_necessary()
     assignment = self.grouping.assignment
     if self.last_token_used_date:
-      if (assignment.token_refresh_period == 'hourly' and (Time.now - self.last_token_used_date) >= 1.hour) or (assignment.token_refresh_period == 'daily' and (Time.now - self.last_token_used_date) >= 1.day)
+      if (assignment.token_refresh_period == Assignment::TOKEN_REFRESH_PERIOD[:hourly] and (Time.now - self.last_token_used_date) >= 1.hour) or (assignment.token_refresh_period == Assignment::TOKEN_REFRESH_PERIOD[:daily] and (Time.now - self.last_token_used_date) >= 1.day)
         self.reassign_tokens()
       end
     end
