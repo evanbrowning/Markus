@@ -73,7 +73,7 @@ class AssignmentsController < ApplicationController
       @token = Token.find_by_grouping_id(@grouping.id)
       @refresh_periods = Assignment::TOKEN_REFRESH_PERIOD
       if @token
-        @token.reassign_tokens_if_necessary()
+        @token.reassign_tokens() if @token.should_reassign_tokens?()
       end
       @last_modified_date = @grouping.assignment_folder_last_modified_date
       @num_submitted_files = @grouping.number_of_submitted_files

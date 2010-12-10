@@ -23,14 +23,16 @@ class Token < ActiveRecord::Base
     self.save
   end
 
-  #Reassign tokens if it is a new day or a new hour and the instructor has requested it
-  def reassign_tokens_if_necessary()
+  #Returns whether or not tokens should be reasigned based on the 
+  #assignment refresh period.
+  def should_reassign_tokens?()
     assignment = self.grouping.assignment
     if self.last_token_used_date:
       if (assignment.token_refresh_period == Assignment::TOKEN_REFRESH_PERIOD[:hourly] and (Time.now - self.last_token_used_date) >= 1.hour) or (assignment.token_refresh_period == Assignment::TOKEN_REFRESH_PERIOD[:daily] and (Time.now - self.last_token_used_date) >= 1.day)
-        self.reassign_tokens()
+        return true
       end
     end
+    return false
   end
 
   # Re-assign to the student the nomber of tokens 

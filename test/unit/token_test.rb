@@ -108,7 +108,7 @@ class TokenTest < ActiveSupport::TestCase
     end
   end
 
-  context "reassign_tokens_if_necessary when refresh is set to daily" do
+  context "should_reassign_tokens? when refresh is set to daily" do
     setup do
       @token = Token.make(:tokens => '3')
       a = @token.grouping.assignment
@@ -116,19 +116,17 @@ class TokenTest < ActiveSupport::TestCase
       a.token_refresh_period = 'daily'
       a.save
     end
-    should "reassign tokens if it is a new day" do
+    should "return true if it is a new day" do
       @token.last_token_used_date = 5.days.ago
-      @token.reassign_tokens_if_necessary()
-      assert_equal(5, @token.tokens)
+      assert_equal(true, @token.should_reassign_tokens?)
     end
-    should "not reassign tokens if it is not a new day" do
+    should "return false if it is not a new day" do
       @token.last_token_used_date = 3.hours.ago
-      @token.reassign_tokens_if_necessary()
-      assert_equal(3, @token.tokens)
+      assert_equal(false, @token.should_reassign_tokens?)
     end
   end
 
-  context "reassign_tokens_if_necessary when refresh is set to hourly" do
+  context "should_reassign_tokens? when refresh is set to hourly" do
     setup do
       @token = Token.make(:tokens => '3')
       a = @token.grouping.assignment
@@ -136,19 +134,17 @@ class TokenTest < ActiveSupport::TestCase
       a.token_refresh_period = 'hourly'
       a.save
     end
-    should "reassign tokens if it is a new hour" do
+    should "return true if it is a new hour" do
       @token.last_token_used_date = 3.hours.ago
-      @token.reassign_tokens_if_necessary()
-      assert_equal(5, @token.tokens)
+      assert_equal(true, @token.should_reassign_tokens?)
     end
-    should "not reassign tokens if it is not a new hour" do
+    should "return false if it is not a new hour" do
       @token.last_token_used_date = Time.now
-      @token.reassign_tokens_if_necessary()
-      assert_equal(3, @token.tokens)
+      assert_equal(false, @token.should_reassign_tokens?)
     end
   end
 
-  context "reassign_tokens_if_necessary when refresh is set to none" do
+  context "should_reassign_tokens? when refresh is set to none" do
     setup do
       @token = Token.make(:tokens => '3')
       a = @token.grouping.assignment
@@ -156,10 +152,9 @@ class TokenTest < ActiveSupport::TestCase
       a.token_refresh_period = 'none'
       a.save
     end
-    should "not reassign tokens even if last token used was a long time ago" do
+    should "return false even if last token used was a long time ago" do
       @token.last_token_used_date = 5.days.ago
-      @token.reassign_tokens_if_necessary()
-      assert_equal(3, @token.tokens)
+      assert_equal(false, @token.should_reassign_tokens?)
     end
   end
 
